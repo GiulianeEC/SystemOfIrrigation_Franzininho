@@ -1,8 +1,10 @@
 import board
 import time
 import adafruit_dht
-import digitalio
-import touchio
+from digitalio import DigitalInOut, Direction, Pull
+from analogio import AnalogIn    #import módulo de entrada analógica
+
+
 
 # DHT na porta 2 da franzinho
 # dht = adafruit_dht.DHT11(board.IO2)
@@ -12,8 +14,10 @@ import touchio
 # relay.switch_to_output()
 
 # Os sensores de umidade de solo estão na porta 1 sendo o analogio e porta 4 o digital da franzinho
-touch = touchio.TouchIn(board.IO1)  # analogio
-touch2 = touchio.TouchIn(board.IO4)  # digital
+umidade_analog = AnalogIn(board.IO1)        # analogio
+umidade_digital = DigitalInOut(board.IO4)   # digital
+umidade_digital.direction = Direction.INPUT # Configura pino como entrada digital
+
 
 # relay.value = True
 wait_time = 1
@@ -28,15 +32,11 @@ while True:
         # temperature = dht.temperature
         # humidity = dht.humidity
 
-        # retorna true se o sensor estiver conectado e capturando sinal
-        if touch.value:
-            print(touch.value)
-
         # imprime os valores lidos no sensor de umidade de solo
-        sensor_value = touch.raw_value
-        sensor_value2 = touch.raw_value
-        print("sensor_value:", sensor_value)
-        print("sensor_value2:", sensor_value2)
+        print("Umidade (Valor Digital):", umidade_digital.value)
+        print("Umidade (Valor Analogico):", umidade_analog.value)
+
+        time.sleep(1);
 
         # Imprime valores lidos na serial DHT11
         # print("Temperature: {:.1f} °C \t humidity: {}%".format(temperature, humidity))
