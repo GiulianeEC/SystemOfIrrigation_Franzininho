@@ -20,9 +20,9 @@ import board
 import time
 
 from digitalio import DigitalInOut, Direction, Pull
-from analogio import AnalogIn    #import analog input module
+from analogio import AnalogIn    #to import the analog input module
 
-# RELÉ na porta 0 da franzinho
+# Relay on port 0 of the franzinho
 relay = DigitalInOut(board.IO0)
 relay.switch_to_output()
 
